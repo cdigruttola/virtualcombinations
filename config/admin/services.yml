@@ -1,0 +1,31 @@
+imports:
+  - { resource: ../common.yml }
+
+services:
+  _defaults:
+    public: true
+
+  #creation/edition form
+  cdigruttola.virtual_combinations.form.identifiable_object.data_provider.product_data_provider:
+    class: 'cdigruttola\VirtualCombinations\Form\Provider\ProductVirtualCombinationsFormDataProvider'
+    arguments:
+      - '@cdigruttola.virtual_combinations.repository.product_virtual_combinations'
+
+  cdigruttola.virtual_combinations.form.identifiable_object.builder.product_form_builder:
+    class: 'PrestaShop\PrestaShop\Core\Form\IdentifiableObject\Builder\FormBuilder'
+    factory: 'prestashop.core.form.builder.form_builder_factory:create'
+    arguments:
+      - 'cdigruttola\VirtualCombinations\Form\ProductVirtualCombinationsType'
+      - '@cdigruttola.virtual_combinations.form.identifiable_object.data_provider.product_data_provider'
+
+  cdigruttola.virtual_combinations.form.virtual_combinations_type:
+    class: 'cdigruttola\VirtualCombinations\Form\ProductVirtualCombinationsType'
+    parent: 'form.type.translatable.aware'
+    public: true
+    tags:
+      - { name: form.type }
+
+  cdigruttola.virtual_combinations.form.identifiable_object.data_handler.product_form_data_handler:
+    class: 'cdigruttola\VirtualCombinations\Form\DataHandler\ProductVirtualCombinationsFormDataHandler'
+    arguments:
+      - '@doctrine.orm.default_entity_manager'

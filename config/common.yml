@@ -1,0 +1,17 @@
+services:
+  _defaults:
+    public: true
+
+  cdigruttola.virtual_combinations.module:
+    class: VirtualCombinations
+    factory: [ 'Module', 'getInstanceByName' ]
+    public: false
+    arguments:
+      - 'virtualcombinations'
+
+  cdigruttola.virtual_combinations.repository.product_virtual_combinations:
+    class: cdigruttola\VirtualCombinations\Repository\ProductVirtualCombinationsRepository
+    public: true
+    factory: [ '@doctrine.orm.default_entity_manager', getRepository ]
+    arguments:
+      - cdigruttola\VirtualCombinations\Entity\ProductVirtualCombinations
