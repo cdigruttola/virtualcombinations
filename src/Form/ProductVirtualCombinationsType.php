@@ -27,16 +27,17 @@ declare(strict_types=1);
 
 namespace cdigruttola\VirtualCombinations\Form;
 
-use Oksydan\IsProductExtraTabs\Translations\TranslationDomains;
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 use PrestaShopBundle\Form\Admin\Type\SwitchType;
 use PrestaShopBundle\Form\Admin\Type\TranslatorAwareType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProductVirtualCombinationsType extends TranslatorAwareType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('id_product', HiddenType::class)

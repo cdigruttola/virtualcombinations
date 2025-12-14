@@ -27,6 +27,10 @@ declare(strict_types=1);
 
 namespace cdigruttola\VirtualCombinations\Entity;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**

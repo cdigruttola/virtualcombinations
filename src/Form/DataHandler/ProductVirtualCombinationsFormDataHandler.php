@@ -27,6 +27,10 @@ declare(strict_types=1);
 
 namespace cdigruttola\VirtualCombinations\Form\DataHandler;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 use cdigruttola\VirtualCombinations\Entity\ProductVirtualCombinations;
 use Doctrine\ORM\EntityManagerInterface;
 use PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler\FormDataHandlerInterface;

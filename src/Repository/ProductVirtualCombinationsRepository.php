@@ -27,9 +27,12 @@ declare(strict_types=1);
 
 namespace cdigruttola\VirtualCombinations\Repository;
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
 use Doctrine\ORM\EntityRepository;
 
 class ProductVirtualCombinationsRepository extends EntityRepository
 {
-
 }

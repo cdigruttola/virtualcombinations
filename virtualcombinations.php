@@ -22,7 +22,6 @@
  * @copyright Copyright since 2007 Carmine Di Gruttola
  * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -33,15 +32,11 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 
 use cdigruttola\VirtualCombinations\Form\DataHandler\ProductVirtualCombinationsFormDataHandler;
 use cdigruttola\VirtualCombinations\Form\ProductVirtualCombinationsType;
-use PrestaShop\PrestaShop\Adapter\Attribute\AdminAttributeGeneratorControllerWrapper;
-use PrestaShop\PrestaShop\Adapter\Attribute\AttributeDataProvider;
 use PrestaShop\PrestaShop\Adapter\Product\Combination\Update\CombinationDeleter;
 use PrestaShop\PrestaShop\Core\Domain\Product\ValueObject\ProductId;
 use PrestaShop\PrestaShop\Core\Domain\Product\ValueObject\ProductType;
 use PrestaShop\PrestaShop\Core\Domain\Shop\ValueObject\ShopConstraint;
 use PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider\FormDataProviderInterface;
-use Symfony\Component\Form\FormFactory;
-use Twig\Environment;
 
 class VirtualCombinations extends Module
 {

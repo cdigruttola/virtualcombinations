@@ -22,10 +22,13 @@
  * @copyright Copyright since 2007 Carmine Di Gruttola
  * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
 declare(strict_types=1);
 
 namespace cdigruttola\VirtualCombinations\Form\Provider;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 use cdigruttola\VirtualCombinations\Entity\ProductVirtualCombinations;
 use Doctrine\ORM\EntityRepository;
@@ -39,7 +42,6 @@ class ProductVirtualCombinationsFormDataProvider implements FormDataProviderInte
     private $repository;
 
     /**
-     *
      * @param EntityRepository $repository
      */
     public function __construct(
@@ -55,7 +57,7 @@ class ProductVirtualCombinationsFormDataProvider implements FormDataProviderInte
      */
     public function getData($id): array
     {
-        /** @var ProductVirtualCombinations $entity */
+        /** @var ProductVirtualCombinations|null $entity */
         $entity = $this->repository->findOneBy(['id_product' => (int) $id]);
 
         $data = [];
