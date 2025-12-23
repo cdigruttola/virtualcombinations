@@ -98,10 +98,10 @@ class VirtualCombinations extends Module
                 Db::getInstance()->update('product', ['product_type' => ProductType::TYPE_COMBINATIONS], 'id_product = ' . $productId);
                 Db::getInstance()->update('product', ['is_virtual' => 1], 'id_product = ' . $productId);
             } else {
-                Db::getInstance()->update('product', ['product_type' => ProductType::TYPE_VIRTUAL], 'id_product = ' . $productId);
-                /** @var CombinationDeleter $combinationDeleter */
-                $combinationDeleter = $this->get('PrestaShop\PrestaShop\Adapter\Product\Combination\Update\CombinationDeleter');
-                $combinationDeleter->deleteAllProductCombinations(new ProductId($productId), ShopConstraint::allShops());
+//                Db::getInstance()->update('product', ['product_type' => ProductType::TYPE_VIRTUAL], 'id_product = ' . $productId);
+//                /** @var CombinationDeleter $combinationDeleter */
+//                $combinationDeleter = $this->get('PrestaShop\PrestaShop\Adapter\Product\Combination\Update\CombinationDeleter');
+//                $combinationDeleter->deleteAllProductCombinations(new ProductId($productId), ShopConstraint::allShops());
             }
         }
     }
