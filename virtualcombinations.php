@@ -30,8 +30,10 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
     require_once __DIR__ . '/vendor/autoload.php';
 }
 
+use cdigruttola\VirtualCombinations\Entity\ProductVirtualCombinations;
 use cdigruttola\VirtualCombinations\Form\DataHandler\ProductVirtualCombinationsFormDataHandler;
 use cdigruttola\VirtualCombinations\Form\ProductVirtualCombinationsType;
+use cdigruttola\VirtualCombinations\Repository\ProductVirtualCombinationsRepository;
 use PrestaShop\PrestaShop\Adapter\Product\Combination\Update\CombinationDeleter;
 use PrestaShop\PrestaShop\Core\Domain\Product\ValueObject\ProductId;
 use PrestaShop\PrestaShop\Core\Domain\Product\ValueObject\ProductType;
@@ -91,17 +93,22 @@ class VirtualCombinations extends Module
         /** @var ProductVirtualCombinationsFormDataHandler $handler */
         $handler = $this->get('cdigruttola.virtual_combinations.form.identifiable_object.data_handler.product_form_data_handler');
         if (!empty($form_data)) {
+            /** @var ProductVirtualCombinationsRepository $repository */
+            $repository = $this->get('cdigruttola.virtual_combinations.repository.product_virtual_combinations');
+            /** @var ProductVirtualCombinations|null $entity */
+            $entity = $repository->findOneBy(['id_product' => $productId]);
+
             $handler->createOrUpdate($form_data);
 
             $enableVirtualCombinations = $form_data['active'] ?? false;
             if ($enableVirtualCombinations) {
                 Db::getInstance()->update('product', ['product_type' => ProductType::TYPE_COMBINATIONS], 'id_product = ' . $productId);
                 Db::getInstance()->update('product', ['is_virtual' => 1], 'id_product = ' . $productId);
-            } else {
-//                Db::getInstance()->update('product', ['product_type' => ProductType::TYPE_VIRTUAL], 'id_product = ' . $productId);
-//                /** @var CombinationDeleter $combinationDeleter */
-//                $combinationDeleter = $this->get('PrestaShop\PrestaShop\Adapter\Product\Combination\Update\CombinationDeleter');
-//                $combinationDeleter->deleteAllProductCombinations(new ProductId($productId), ShopConstraint::allShops());
+            } else if ($entity !== null) {
+                    Db::getInstance()->update('product', ['product_type' => ProductType::TYPE_VIRTUAL], 'id_product = ' . $productId);
+                    /** @var CombinationDeleter $combinationDeleter */
+                    $combinationDeleter = $this->get('PrestaShop\PrestaShop\Adapter\Product\Combination\Update\CombinationDeleter');
+                    $combinationDeleter->deleteAllProductCombinations(new ProductId($productId), ShopConstraint::allShops());
             }
         }
     }
